@@ -3,7 +3,7 @@ let allProducts = [];
 let cart = JSON.parse(localStorage.getItem("swiftcart")) || [];
 let currentProduct = null;
 
-// API Helpers
+// API helpers
 const BASE = "https://fakestoreapi.com";
 
 async function fetchJSON(url) {
@@ -231,7 +231,7 @@ async function loadProducts() {
     .map(renderCard)
     .join("");
 
-  // Trending — top 3 by rating
+  // Trending (top 3 by rating)
   const trending = [...products]
     .sort((a, b) => b.rating.rate - a.rating.rate)
     .slice(0, 3);

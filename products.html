@@ -40,7 +40,7 @@
         class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16"
       >
         <!-- Logo -->
-        <a href="#" class="nav-logo">Swift<span>Cart</span></a>
+        <a href="index.html" class="nav-logo">Swift<span>Cart</span></a>
 
         <!-- Navigation Menu -->
         <ul
@@ -143,6 +143,159 @@
         </div>
       </div>
     </section>
+
+    <!-- PRODUCT DETAILS MODAL -->
+    <div class="modal-overlay" id="detailsModal">
+      <div class="modal-box">
+        <button class="modal-close" id="modalClose">✕</button>
+        <img src="" alt="" class="modal-img" id="modalImg" />
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+          "
+        >
+          <span
+            id="modalBadge"
+            style="
+              background: var(--accent-light);
+              color: var(--accent);
+              font-size: 0.7rem;
+              font-weight: 600;
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              padding: 0.25rem 0.75rem;
+              border-radius: 50px;
+            "
+          ></span>
+          <span
+            id="modalRating"
+            style="font-size: 0.85rem; color: #6b7280"
+          ></span>
+        </div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-actions">
+          <button class="btn-buy" id="modalBuyBtn">Buy Now</button>
+          <button class="btn-add-modal" id="modalCartBtn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CART SIDEBAR -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <aside class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <h2 class="cart-title">Your Cart</h2>
+        <button class="modal-close" id="cartClose">✕</button>
+      </div>
+
+      <div class="cart-items" id="cartItems">
+        <div class="cart-empty">
+          <div class="cart-empty-icon">🛒</div>
+          <p style="font-size: 0.9rem; font-weight: 500">Your cart is empty</p>
+          <p style="font-size: 0.8rem; margin-top: 0.3rem">
+            Add some products to get started
+          </p>
+        </div>
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span class="cart-total-label">Total</span>
+          <span class="cart-total-price" id="cartTotal">$0.00</span>
+        </div>
+        <button class="btn-checkout">Checkout</button>
+      </div>
+    </aside>
+
+    <!-- TOAST -->
+    <div class="toast-wrap" id="toastWrap"></div>
+
+    <!-- Footer -->
+    <footer class="footer-section" id="contact">
+      <div class="max-w-7xl mx-auto">
+        <div
+          class="grid footer-grid"
+          style="grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 3rem"
+        >
+          <!-- Brand -->
+          <div class="footer-brand">
+            <div class="footer-logo">Swift<span>Cart</span></div>
+            <p class="footer-desc">
+              Your one-stop destination for fashion, electronics, and everyday
+              essentials — curated with care.
+            </p>
+            <div class="social-links">
+              <a href="#" class="social-btn" title="Facebook"
+                ><i class="fa-brands fa-facebook"></i
+              ></a>
+              <a href="#" class="social-btn" title="X"
+                ><i class="fa-brands fa-x-twitter"></i
+              ></a>
+              <a href="#" class="social-btn" title="Instagram"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a href="#" class="social-btn" title="YouTube"
+                ><i class="fa-brands fa-youtube"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <p class="footer-heading">Quick Links</p>
+            <a href="index.html" class="footer-link">Home</a>
+            <a href="products.html" class="footer-link">Products</a>
+            <a href="index.html#about" class="footer-link">About Us</a>
+            <a href="index.html#contact" class="footer-link">Contact</a>
+          </div>
+
+          <!-- Support -->
+          <div>
+            <p class="footer-heading">Support</p>
+            <a href="#" class="footer-link">FAQ</a>
+            <a href="#" class="footer-link">Shipping Policy</a>
+            <a href="#" class="footer-link">Returns</a>
+            <a href="#" class="footer-link">Track Order</a>
+          </div>
+
+          <!-- Newsletter -->
+          <div>
+            <p class="footer-heading">Stay Updated</p>
+            <p
+              style="
+                font-size: 0.85rem;
+                color: #9ca3af;
+                font-weight: 300;
+                margin-bottom: 0.5rem;
+              "
+            >
+              Subscribe for deals, new arrivals, and exclusive offers.
+            </p>
+            <div class="newsletter-form">
+              <input
+                type="email"
+                class="newsletter-input"
+                placeholder="your@email.com"
+              />
+              <button class="newsletter-btn">Subscribe</button>
+            </div>
+          </div>
+        </div>
+
+        <hr class="footer-divider" />
+
+        <div class="footer-bottom">
+          <p class="footer-copy">© 2026 SwiftCart. All rights reserved.</p>
+          <p class="footer-copy">Made with ♥ by Asif Rahman</p>
+        </div>
+      </div>
+    </footer>
 
     <!-- Script(s) -->
     <script src="script.js"></script>

@@ -1,0 +1,1820 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SwiftCart</title>
+
+    <!-- DaisyUI + Tailwind -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --brand: #111827;
+        --accent: #c9a96e;
+        --accent-light: #f5ede0;
+        --soft: #f9f7f4;
+      }
+
+      * {
+        font-family: "DM Sans", sans-serif;
+      }
+
+      h1,
+      h2,
+      h3,
+      .display {
+        font-family: "Playfair Display", serif;
+      }
+
+      body {
+        background: var(--soft);
+        color: var(--brand);
+      }
+
+      /* ── Navbar ── */
+      .navbar-custom {
+        background: rgba(249, 247, 244, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid #ede8e0;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+
+      .nav-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--brand);
+        letter-spacing: -0.5px;
+      }
+
+      .nav-logo span {
+        color: var(--accent);
+      }
+
+      .nav-link {
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        color: #4b5563;
+        transition: color 0.2s;
+        text-transform: uppercase;
+      }
+
+      .nav-link:hover {
+        color: var(--accent);
+      }
+
+      .cart-btn {
+        background: var(--brand);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 0.5rem 1.2rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+
+      .cart-btn:hover {
+        background: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .cart-badge {
+        background: var(--accent);
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ── Hero ── */
+      .hero-section {
+        min-height: 92vh;
+        background:
+          linear-gradient(
+            to right,
+            rgba(249, 247, 244, 0.97) 45%,
+            rgba(249, 247, 244, 0.3) 100%
+          ),
+          url("https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&q=80")
+            center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        padding: 4rem 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 80px;
+        background: var(--soft);
+        clip-path: ellipse(55% 100% at 50% 100%);
+      }
+
+      .hero-tag {
+        display: inline-block;
+        background: var(--accent-light);
+        color: var(--accent);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.8rem, 6vw, 5rem);
+        font-weight: 700;
+        line-height: 1.1;
+        color: var(--brand);
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-title em {
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .hero-subtitle {
+        font-size: 1.05rem;
+        color: #6b7280;
+        max-width: 420px;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+        font-weight: 300;
+      }
+
+      .hero-cta {
+        background: var(--brand);
+        color: white;
+        padding: 0.9rem 2.2rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        border: none;
+        cursor: pointer;
+        transition: all 0.25s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-decoration: none;
+      }
+
+      .hero-cta:hover {
+        background: var(--accent);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(201, 169, 110, 0.35);
+      }
+
+      .hero-cta-outline {
+        background: transparent;
+        color: var(--brand);
+        border: 1.5px solid var(--brand);
+        padding: 0.9rem 2.2rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .hero-cta-outline:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .hero-stats {
+        display: flex;
+        gap: 2.5rem;
+        margin-top: 3.5rem;
+      }
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .stat-number {
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--brand);
+        line-height: 1;
+      }
+
+      .stat-label {
+        font-size: 0.75rem;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-top: 0.25rem;
+      }
+
+      /* ── Section headings ── */
+      .section-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+        font-weight: 700;
+        color: var(--brand);
+        line-height: 1.2;
+      }
+
+      /* ── Why Choose Us ── */
+      .features-section {
+        padding: 6rem 2rem;
+        background: white;
+      }
+
+      .feature-card {
+        background: var(--soft);
+        border-radius: 20px;
+        padding: 2.5rem 2rem;
+        transition: all 0.3s;
+        border: 1px solid #f0ebe3;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(to right, var(--accent), transparent);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(17, 24, 39, 0.08);
+        background: white;
+      }
+
+      .feature-card:hover::before {
+        opacity: 1;
+      }
+
+      .feature-icon {
+        width: 56px;
+        height: 56px;
+        background: var(--accent-light);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+      }
+
+      .feature-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--brand);
+        margin-bottom: 0.6rem;
+      }
+
+      .feature-desc {
+        font-size: 0.875rem;
+        color: #6b7280;
+        line-height: 1.65;
+        font-weight: 300;
+      }
+
+      /* ── Products Section ── */
+      .products-section {
+        padding: 6rem 2rem;
+        background: var(--soft);
+      }
+
+      /* Category filters */
+      .category-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin: 2rem 0 3rem;
+      }
+
+      .filter-btn {
+        padding: 0.5rem 1.3rem;
+        border-radius: 50px;
+        border: 1.5px solid #e5e0d8;
+        background: white;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #4b5563;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-transform: capitalize;
+        letter-spacing: 0.03em;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: var(--brand);
+        color: white;
+        border-color: var(--brand);
+      }
+
+      /* Product cards */
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid #f0ebe3;
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 16px 40px rgba(17, 24, 39, 0.1);
+      }
+
+      .product-img-wrap {
+        background: #faf8f5;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 220px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .product-img-wrap img {
+        max-height: 160px;
+        max-width: 100%;
+        object-fit: contain;
+        transition: transform 0.4s;
+      }
+
+      .product-card:hover .product-img-wrap img {
+        transform: scale(1.06);
+      }
+
+      .product-category-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: var(--accent-light);
+        color: var(--accent);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 0.25rem 0.7rem;
+        border-radius: 50px;
+      }
+
+      .product-info {
+        padding: 1.25rem 1.25rem 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-title {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--brand);
+        margin-bottom: 0.5rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.4;
+      }
+
+      .product-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .stars {
+        color: var(--accent);
+        font-size: 0.8rem;
+      }
+
+      .rating-count {
+        font-size: 0.75rem;
+        color: #9ca3af;
+      }
+
+      .product-price {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--brand);
+        margin-bottom: 1rem;
+        margin-top: auto;
+      }
+
+      .product-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+      }
+
+      .btn-details {
+        padding: 0.55rem;
+        border-radius: 10px;
+        border: 1.5px solid #e5e0d8;
+        background: transparent;
+        font-size: 0.78rem;
+        font-weight: 500;
+        color: var(--brand);
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+      }
+
+      .btn-details:hover {
+        border-color: var(--brand);
+        background: var(--soft);
+      }
+
+      .btn-cart {
+        padding: 0.55rem;
+        border-radius: 10px;
+        border: none;
+        background: var(--brand);
+        font-size: 0.78rem;
+        font-weight: 500;
+        color: white;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+      }
+
+      .btn-cart:hover {
+        background: var(--accent);
+      }
+
+      /* Loading skeleton */
+      .skeleton-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid #f0ebe3;
+      }
+
+      .skeleton-img {
+        height: 220px;
+        background: linear-gradient(
+          90deg,
+          #f0ebe3 25%,
+          #faf8f5 50%,
+          #f0ebe3 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+
+      .skeleton-text {
+        height: 12px;
+        border-radius: 6px;
+        background: linear-gradient(
+          90deg,
+          #f0ebe3 25%,
+          #faf8f5 50%,
+          #f0ebe3 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+        margin: 0.5rem 1.25rem;
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      /* ── Trending Section ── */
+      .trending-section {
+        padding: 6rem 2rem;
+        background: white;
+      }
+
+      .trending-card {
+        background: var(--soft);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid #f0ebe3;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        transition: all 0.3s;
+      }
+
+      .trending-card:hover {
+        transform: translateX(6px);
+        box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+        background: white;
+      }
+
+      .trending-rank {
+        font-family: "Playfair Display", serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #f0ebe3;
+        line-height: 1;
+        min-width: 2rem;
+      }
+
+      .trending-img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        background: white;
+        border-radius: 12px;
+        padding: 0.5rem;
+        flex-shrink: 0;
+      }
+
+      .trending-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .trending-title {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--brand);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0.3rem;
+      }
+
+      .trending-price {
+        font-family: "Playfair Display", serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      /* ── Details Modal ── */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(17, 24, 39, 0.5);
+        backdrop-filter: blur(4px);
+        z-index: 100;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+
+      .modal-overlay.open {
+        display: flex;
+      }
+
+      .modal-box {
+        background: white;
+        border-radius: 24px;
+        max-width: 680px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 2.5rem;
+        position: relative;
+        animation: modalIn 0.3s ease;
+      }
+
+      @keyframes modalIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 1.25rem;
+        right: 1.25rem;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1.5px solid #e5e0d8;
+        background: transparent;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+
+      .modal-close:hover {
+        background: var(--soft);
+      }
+
+      .modal-img {
+        width: 100%;
+        max-height: 280px;
+        object-fit: contain;
+        background: var(--soft);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .modal-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--brand);
+        margin-bottom: 0.75rem;
+        line-height: 1.3;
+      }
+
+      .modal-desc {
+        font-size: 0.875rem;
+        color: #6b7280;
+        line-height: 1.7;
+        font-weight: 300;
+        margin-bottom: 1.5rem;
+      }
+
+      .modal-price {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--brand);
+        margin-bottom: 1.5rem;
+      }
+
+      .modal-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+
+      .btn-buy {
+        padding: 0.85rem;
+        border-radius: 12px;
+        border: none;
+        background: var(--brand);
+        color: white;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-buy:hover {
+        background: var(--accent);
+      }
+
+      .btn-add-modal {
+        padding: 0.85rem;
+        border-radius: 12px;
+        border: 1.5px solid var(--brand);
+        background: transparent;
+        color: var(--brand);
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-add-modal:hover {
+        background: var(--soft);
+      }
+
+      /* ── Cart Sidebar ── */
+      .cart-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(17, 24, 39, 0.4);
+        backdrop-filter: blur(4px);
+        z-index: 200;
+        display: none;
+      }
+
+      .cart-overlay.open {
+        display: block;
+      }
+
+      .cart-sidebar {
+        position: fixed;
+        top: 0;
+        right: -420px;
+        width: 100%;
+        max-width: 420px;
+        height: 100vh;
+        background: white;
+        z-index: 201;
+        display: flex;
+        flex-direction: column;
+        transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -10px 0 40px rgba(17, 24, 39, 0.12);
+      }
+
+      .cart-sidebar.open {
+        right: 0;
+      }
+
+      .cart-header {
+        padding: 1.5rem 1.5rem 1rem;
+        border-bottom: 1px solid #f0ebe3;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .cart-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--brand);
+      }
+
+      .cart-items {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem 1.5rem;
+      }
+
+      .cart-item {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid #f9f7f4;
+        align-items: center;
+      }
+
+      .cart-item-img {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        background: var(--soft);
+        border-radius: 10px;
+        padding: 0.5rem;
+        flex-shrink: 0;
+      }
+
+      .cart-item-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .cart-item-name {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--brand);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0.25rem;
+      }
+
+      .cart-item-price {
+        font-family: "Playfair Display", serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .cart-remove {
+        background: none;
+        border: none;
+        color: #d1d5db;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: color 0.2s;
+        padding: 0.25rem;
+      }
+
+      .cart-remove:hover {
+        color: #ef4444;
+      }
+
+      .cart-footer {
+        padding: 1.25rem 1.5rem;
+        border-top: 1px solid #f0ebe3;
+        background: var(--soft);
+      }
+
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .cart-total-label {
+        font-size: 0.875rem;
+        color: #6b7280;
+        font-weight: 500;
+      }
+
+      .cart-total-price {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--brand);
+      }
+
+      .btn-checkout {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 12px;
+        border: none;
+        background: var(--brand);
+        color: white;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-checkout:hover {
+        background: var(--accent);
+      }
+
+      .cart-empty {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: #9ca3af;
+      }
+
+      .cart-empty-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      /* ── Footer ── */
+      .footer-section {
+        background: var(--brand);
+        color: white;
+        padding: 4rem 2rem 2rem;
+      }
+
+      .footer-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+
+      .footer-logo span {
+        color: var(--accent);
+      }
+
+      .footer-desc {
+        font-size: 0.875rem;
+        color: #9ca3af;
+        line-height: 1.7;
+        font-weight: 300;
+        max-width: 260px;
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-heading {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #9ca3af;
+        margin-bottom: 1.25rem;
+      }
+
+      .footer-link {
+        display: block;
+        font-size: 0.875rem;
+        color: #d1d5db;
+        text-decoration: none;
+        margin-bottom: 0.6rem;
+        transition: color 0.2s;
+        font-weight: 300;
+      }
+
+      .footer-link:hover {
+        color: var(--accent);
+      }
+
+      .social-links {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .social-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        border: 1px solid #374151;
+        background: transparent;
+        color: #9ca3af;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+
+      .social-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: rgba(201, 169, 110, 0.1);
+      }
+
+      .newsletter-form {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .newsletter-input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        border: 1px solid #374151;
+        background: #1f2937;
+        color: white;
+        font-size: 0.85rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      .newsletter-input::placeholder {
+        color: #6b7280;
+      }
+      .newsletter-input:focus {
+        border-color: var(--accent);
+      }
+
+      .newsletter-btn {
+        padding: 0.75rem 1.25rem;
+        border-radius: 10px;
+        border: none;
+        background: var(--accent);
+        color: white;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+
+      .newsletter-btn:hover {
+        background: #b8925c;
+      }
+
+      .footer-divider {
+        border-color: #1f2937;
+        margin: 2rem 0 1.5rem;
+      }
+
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-copy {
+        font-size: 0.8rem;
+        color: #6b7280;
+        font-weight: 300;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 768px) {
+        .hero-section {
+          background:
+            linear-gradient(
+              to bottom,
+              rgba(249, 247, 244, 0.97) 60%,
+              rgba(249, 247, 244, 0.85) 100%
+            ),
+            url("https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&q=80")
+              center/cover no-repeat;
+          padding: 3rem 1.25rem 5rem;
+          min-height: auto;
+        }
+
+        .hero-stats {
+          gap: 1.5rem;
+        }
+
+        .nav-menu {
+          display: none;
+        }
+
+        .features-section,
+        .products-section,
+        .trending-section {
+          padding: 4rem 1.25rem;
+        }
+
+        .product-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+        }
+
+        .footer-section {
+          padding: 3rem 1.25rem 2rem;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr 1fr !important;
+          gap: 2rem !important;
+        }
+
+        .footer-brand {
+          grid-column: 1 / -1;
+        }
+
+        .modal-box {
+          padding: 1.5rem;
+          border-radius: 20px;
+        }
+
+        .modal-actions {
+          grid-template-columns: 1fr;
+        }
+
+        .cart-sidebar {
+          max-width: 100%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-stats {
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+      }
+
+      /* ── Toast ── */
+      .toast-wrap {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        z-index: 300;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .toast {
+        background: var(--brand);
+        color: white;
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        animation:
+          toastIn 0.3s ease,
+          toastOut 0.3s ease 2.5s forwards;
+        box-shadow: 0 8px 24px rgba(17, 24, 39, 0.15);
+      }
+
+      @keyframes toastIn {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes toastOut {
+        from {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ══════════════════════════════
+         NAVBAR
+    ══════════════════════════════ -->
+    <nav class="navbar-custom">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16"
+      >
+        <!-- Logo -->
+        <a href="#" class="nav-logo">Swift<span>Cart</span></a>
+
+        <!-- Nav links -->
+        <ul
+          class="nav-menu hidden md:flex items-center gap-8"
+          style="list-style: none; margin: 0; padding: 0"
+        >
+          <li><a href="#" class="nav-link">Home</a></li>
+          <li><a href="#products" class="nav-link">Products</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <!-- Cart button -->
+        <button class="cart-btn" id="cartToggle">
+          <svg
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 01-8 0" />
+          </svg>
+          Cart
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ══════════════════════════════
+         HERO
+    ══════════════════════════════ -->
+    <section class="hero-section">
+      <div class="max-w-7xl mx-auto w-full">
+        <div class="max-w-xl">
+          <span class="hero-tag">✦ New Season Collection</span>
+
+          <h1 class="hero-title">
+            Best Collection<br />
+            <em>For You</em>
+          </h1>
+
+          <p class="hero-subtitle">
+            Discover curated products across fashion, electronics, and lifestyle
+            — delivered fast, priced right, and backed by our promise.
+          </p>
+
+          <div class="flex flex-wrap gap-3">
+            <a href="#products" class="hero-cta">
+              Shop Now
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="#about" class="hero-cta-outline">Learn More</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">20K+</span>
+              <span class="stat-label">Products</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">99%</span>
+              <span class="stat-label">Satisfaction</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">Fast</span>
+              <span class="stat-label">Delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════
+         WHY CHOOSE US
+    ══════════════════════════════ -->
+    <section class="features-section" id="about">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+          <p class="section-label">Why SwiftCart</p>
+          <h2 class="section-title">Shopping, Elevated</h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <h3 class="feature-title">Fast Delivery</h3>
+            <p class="feature-desc">
+              Orders processed within 24 hours. Express delivery available to
+              your doorstep nationwide.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3 class="feature-title">Secure Payment</h3>
+            <p class="feature-desc">
+              Industry-standard encryption protects every transaction. Pay with
+              confidence every time.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">💬</div>
+            <h3 class="feature-title">24/7 Support</h3>
+            <p class="feature-desc">
+              Our customer care team is always on standby to help you with any
+              queries or concerns.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">↩️</div>
+            <h3 class="feature-title">Easy Returns</h3>
+            <p class="feature-desc">
+              Not satisfied? Return within 30 days, no questions asked.
+              Hassle-free refund guaranteed.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════
+         PRODUCTS SECTION
+    ══════════════════════════════ -->
+    <section class="products-section" id="products">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-2">
+          <div>
+            <p class="section-label">Our Store</p>
+            <h2 class="section-title">Browse Products</h2>
+          </div>
+        </div>
+
+        <!-- Category filters -->
+        <div class="category-filters" id="categoryFilters">
+          <button class="filter-btn active" data-category="all">All</button>
+          <!-- JS will inject more buttons here -->
+        </div>
+
+        <!-- Product grid -->
+        <div class="product-grid" id="productGrid">
+          <!-- Skeleton placeholders shown while loading -->
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div
+              class="skeleton-text"
+              style="width: 80%; margin-top: 1rem"
+            ></div>
+            <div class="skeleton-text" style="width: 50%"></div>
+            <div
+              class="skeleton-text"
+              style="width: 65%; margin-bottom: 1rem"
+            ></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div
+              class="skeleton-text"
+              style="width: 80%; margin-top: 1rem"
+            ></div>
+            <div class="skeleton-text" style="width: 50%"></div>
+            <div
+              class="skeleton-text"
+              style="width: 65%; margin-bottom: 1rem"
+            ></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div
+              class="skeleton-text"
+              style="width: 80%; margin-top: 1rem"
+            ></div>
+            <div class="skeleton-text" style="width: 50%"></div>
+            <div
+              class="skeleton-text"
+              style="width: 65%; margin-bottom: 1rem"
+            ></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div
+              class="skeleton-text"
+              style="width: 80%; margin-top: 1rem"
+            ></div>
+            <div class="skeleton-text" style="width: 50%"></div>
+            <div
+              class="skeleton-text"
+              style="width: 65%; margin-bottom: 1rem"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════
+         TRENDING NOW
+    ══════════════════════════════ -->
+    <section class="trending-section">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+          <p class="section-label">Hot Right Now</p>
+          <h2 class="section-title">Trending Now</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="trendingGrid">
+          <!-- JS will inject trending products -->
+          <div class="skeleton-card" style="height: 130px"></div>
+          <div class="skeleton-card" style="height: 130px"></div>
+          <div class="skeleton-card" style="height: 130px"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════
+         FOOTER
+    ══════════════════════════════ -->
+    <footer class="footer-section" id="contact">
+      <div class="max-w-7xl mx-auto">
+        <div
+          class="grid footer-grid"
+          style="grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 3rem"
+        >
+          <!-- Brand -->
+          <div class="footer-brand">
+            <div class="footer-logo">Swift<span>Cart</span></div>
+            <p class="footer-desc">
+              Your one-stop destination for fashion, electronics, and everyday
+              essentials — curated with care.
+            </p>
+            <div class="social-links">
+              <a href="#" class="social-btn" title="Facebook">f</a>
+              <a href="#" class="social-btn" title="Twitter">𝕏</a>
+              <a href="#" class="social-btn" title="Instagram">✦</a>
+              <a href="#" class="social-btn" title="YouTube">▶</a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <p class="footer-heading">Quick Links</p>
+            <a href="#" class="footer-link">Home</a>
+            <a href="#products" class="footer-link">Products</a>
+            <a href="#about" class="footer-link">About Us</a>
+            <a href="#contact" class="footer-link">Contact</a>
+          </div>
+
+          <!-- Support -->
+          <div>
+            <p class="footer-heading">Support</p>
+            <a href="#" class="footer-link">FAQ</a>
+            <a href="#" class="footer-link">Shipping Policy</a>
+            <a href="#" class="footer-link">Returns</a>
+            <a href="#" class="footer-link">Track Order</a>
+          </div>
+
+          <!-- Newsletter -->
+          <div>
+            <p class="footer-heading">Stay Updated</p>
+            <p
+              style="
+                font-size: 0.85rem;
+                color: #9ca3af;
+                font-weight: 300;
+                margin-bottom: 0.5rem;
+              "
+            >
+              Subscribe for deals, new arrivals, and exclusive offers.
+            </p>
+            <div class="newsletter-form">
+              <input
+                type="email"
+                class="newsletter-input"
+                placeholder="your@email.com"
+              />
+              <button class="newsletter-btn">Subscribe</button>
+            </div>
+          </div>
+        </div>
+
+        <hr class="footer-divider" />
+
+        <div class="footer-bottom">
+          <p class="footer-copy">© 2025 SwiftCart. All rights reserved.</p>
+          <p class="footer-copy">Made with ♥ by Asif Rahman</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ══════════════════════════════
+         PRODUCT DETAILS MODAL
+    ══════════════════════════════ -->
+    <div class="modal-overlay" id="detailsModal">
+      <div class="modal-box">
+        <button class="modal-close" id="modalClose">✕</button>
+        <img src="" alt="" class="modal-img" id="modalImg" />
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+          "
+        >
+          <span
+            id="modalBadge"
+            style="
+              background: var(--accent-light);
+              color: var(--accent);
+              font-size: 0.7rem;
+              font-weight: 600;
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              padding: 0.25rem 0.75rem;
+              border-radius: 50px;
+            "
+          ></span>
+          <span
+            id="modalRating"
+            style="font-size: 0.85rem; color: #6b7280"
+          ></span>
+        </div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-actions">
+          <button class="btn-buy" id="modalBuyBtn">Buy Now</button>
+          <button class="btn-add-modal" id="modalCartBtn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         CART SIDEBAR
+    ══════════════════════════════ -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <aside class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <h2 class="cart-title">Your Cart</h2>
+        <button class="modal-close" id="cartClose">✕</button>
+      </div>
+
+      <div class="cart-items" id="cartItems">
+        <div class="cart-empty">
+          <div class="cart-empty-icon">🛒</div>
+          <p style="font-size: 0.9rem; font-weight: 500">Your cart is empty</p>
+          <p style="font-size: 0.8rem; margin-top: 0.3rem">
+            Add some products to get started
+          </p>
+        </div>
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span class="cart-total-label">Total</span>
+          <span class="cart-total-price" id="cartTotal">$0.00</span>
+        </div>
+        <button class="btn-checkout">Checkout</button>
+      </div>
+    </aside>
+
+    <!-- Toast container -->
+    <div class="toast-wrap" id="toastWrap"></div>
+
+    <!-- ══════════════════════════════
+         JAVASCRIPT
+    ══════════════════════════════ -->
+    <script>
+      // ── State ──────────────────────────────────────────
+      let allProducts = [];
+      let cart = JSON.parse(localStorage.getItem("swiftcart")) || [];
+      let currentProduct = null;
+
+      // ── API helpers ────────────────────────────────────
+      const BASE = "https://fakestoreapi.com";
+
+      async function fetchJSON(url) {
+        const res = await fetch(url);
+        return res.json();
+      }
+
+      // ── Toast ──────────────────────────────────────────
+      function showToast(msg) {
+        const wrap = document.getElementById("toastWrap");
+        const t = document.createElement("div");
+        t.className = "toast";
+        t.innerHTML = `✓ ${msg}`;
+        wrap.appendChild(t);
+        setTimeout(() => t.remove(), 3000);
+      }
+
+      // ── Stars helper ───────────────────────────────────
+      function renderStars(rate) {
+        const full = Math.round(rate);
+        return "★".repeat(full) + "☆".repeat(5 - full);
+      }
+
+      // ── Cart ───────────────────────────────────────────
+      function saveCart() {
+        localStorage.setItem("swiftcart", JSON.stringify(cart));
+      }
+
+      function updateCartUI() {
+        const count = cart.reduce((s, i) => s + i.qty, 0);
+        document.getElementById("cartCount").textContent = count;
+
+        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        document.getElementById("cartTotal").textContent =
+          `$${total.toFixed(2)}`;
+
+        const container = document.getElementById("cartItems");
+
+        if (cart.length === 0) {
+          container.innerHTML = `
+            <div class="cart-empty">
+              <div class="cart-empty-icon">🛒</div>
+              <p style="font-size:0.9rem;font-weight:500;">Your cart is empty</p>
+              <p style="font-size:0.8rem;margin-top:0.3rem;">Add some products to get started</p>
+            </div>`;
+          return;
+        }
+
+        container.innerHTML = cart
+          .map(
+            (item) => `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.title}" class="cart-item-img" />
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.title}</div>
+              <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+              <div style="font-size:0.75rem;color:#9ca3af;">Qty: ${item.qty}</div>
+            </div>
+            <button class="cart-remove" onclick="removeFromCart(${item.id})">✕</button>
+          </div>`,
+          )
+          .join("");
+      }
+
+      function addToCart(product) {
+        const existing = cart.find((i) => i.id === product.id);
+        if (existing) {
+          existing.qty++;
+        } else {
+          cart.push({ ...product, qty: 1 });
+        }
+        saveCart();
+        updateCartUI();
+        showToast(`${product.title.substring(0, 30)}... added`);
+      }
+
+      function removeFromCart(id) {
+        cart = cart.filter((i) => i.id !== id);
+        saveCart();
+        updateCartUI();
+      }
+
+      // ── Cart sidebar toggle ────────────────────────────
+      const cartToggle = document.getElementById("cartToggle");
+      const cartSidebar = document.getElementById("cartSidebar");
+      const cartOverlay = document.getElementById("cartOverlay");
+      const cartClose = document.getElementById("cartClose");
+
+      function openCart() {
+        cartSidebar.classList.add("open");
+        cartOverlay.classList.add("open");
+      }
+      function closeCart() {
+        cartSidebar.classList.remove("open");
+        cartOverlay.classList.remove("open");
+      }
+
+      cartToggle.addEventListener("click", openCart);
+      cartClose.addEventListener("click", closeCart);
+      cartOverlay.addEventListener("click", closeCart);
+
+      // ── Details Modal ──────────────────────────────────
+      const modal = document.getElementById("detailsModal");
+      const modalClose = document.getElementById("modalClose");
+
+      function openModal(product) {
+        currentProduct = product;
+        document.getElementById("modalImg").src = product.image;
+        document.getElementById("modalImg").alt = product.title;
+        document.getElementById("modalTitle").textContent = product.title;
+        document.getElementById("modalDesc").textContent = product.description;
+        document.getElementById("modalPrice").textContent =
+          `$${product.price.toFixed(2)}`;
+        document.getElementById("modalBadge").textContent = product.category;
+        document.getElementById("modalRating").textContent =
+          `${renderStars(product.rating.rate)} (${product.rating.count} reviews)`;
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        modal.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      modalClose.addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      document.getElementById("modalCartBtn").addEventListener("click", () => {
+        if (currentProduct) {
+          addToCart(currentProduct);
+          closeModal();
+        }
+      });
+
+      document.getElementById("modalBuyBtn").addEventListener("click", () => {
+        if (currentProduct) {
+          addToCart(currentProduct);
+          closeModal();
+          openCart();
+        }
+      });
+
+      // ── Render product card ────────────────────────────
+      function renderCard(p) {
+        return `
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <span class="product-category-badge">${p.category}</span>
+              <img src="${p.image}" alt="${p.title}" loading="lazy" />
+            </div>
+            <div class="product-info">
+              <div class="product-title" title="${p.title}">${p.title}</div>
+              <div class="product-rating">
+                <span class="stars">${renderStars(p.rating.rate)}</span>
+                <span class="rating-count">(${p.rating.count})</span>
+              </div>
+              <div class="product-price">$${p.price.toFixed(2)}</div>
+              <div class="product-actions">
+                <button class="btn-details" onclick='openModal(${JSON.stringify(p)})'>Details</button>
+                <button class="btn-cart"    onclick='addToCart(${JSON.stringify(p)})'>+ Cart</button>
+              </div>
+            </div>
+          </div>`;
+      }
+
+      // ── Render trending card ───────────────────────────
+      function renderTrendingCard(p, rank) {
+        return `
+          <div class="trending-card">
+            <span class="trending-rank">${String(rank).padStart(2, "0")}</span>
+            <img src="${p.image}" alt="${p.title}" class="trending-img" />
+            <div class="trending-info">
+              <div class="trending-title" title="${p.title}">${p.title}</div>
+              <div class="stars" style="font-size:0.8rem;margin-bottom:0.25rem;">${renderStars(p.rating.rate)}</div>
+              <div class="trending-price">$${p.price.toFixed(2)}</div>
+            </div>
+          </div>`;
+      }
+
+      // ── Load categories ────────────────────────────────
+      async function loadCategories() {
+        const cats = await fetchJSON(`${BASE}/products/categories`);
+        const container = document.getElementById("categoryFilters");
+        container.innerHTML = `<button class="filter-btn active" data-category="all">All</button>`;
+        cats.forEach((cat) => {
+          const btn = document.createElement("button");
+          btn.className = "filter-btn";
+          btn.dataset.category = cat;
+          btn.textContent = cat;
+          container.appendChild(btn);
+        });
+
+        // Delegate click
+        container.addEventListener("click", (e) => {
+          const btn = e.target.closest(".filter-btn");
+          if (!btn) return;
+          container
+            .querySelectorAll(".filter-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          filterProducts(btn.dataset.category);
+        });
+      }
+
+      // ── Filter products ────────────────────────────────
+      function filterProducts(category) {
+        const filtered =
+          category === "all"
+            ? allProducts
+            : allProducts.filter((p) => p.category === category);
+        document.getElementById("productGrid").innerHTML = filtered
+          .map(renderCard)
+          .join("");
+      }
+
+      // ── Load all products ──────────────────────────────
+      async function loadProducts() {
+        const products = await fetchJSON(`${BASE}/products`);
+        allProducts = products;
+
+        // Product grid
+        document.getElementById("productGrid").innerHTML = products
+          .map(renderCard)
+          .join("");
+
+        // Trending — top 3 by rating
+        const trending = [...products]
+          .sort((a, b) => b.rating.rate - a.rating.rate)
+          .slice(0, 3);
+        document.getElementById("trendingGrid").innerHTML = trending
+          .map((p, i) => renderTrendingCard(p, i + 1))
+          .join("");
+      }
+
+      // ── Init ───────────────────────────────────────────
+      async function init() {
+        updateCartUI();
+        await Promise.all([loadCategories(), loadProducts()]);
+      }
+
+      init();
+    </script>
+  </body>
+</html>

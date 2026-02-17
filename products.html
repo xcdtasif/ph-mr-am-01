@@ -3,10 +3,148 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Products</title>
+    <title>SwifCart - Home</title>
+
+    <!-- DaisyUI, Tailwind -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Font(s) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Style(s) -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Header -->
+    <nav class="navbar-custom">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16"
+      >
+        <!-- Logo -->
+        <a href="#" class="nav-logo">Swift<span>Cart</span></a>
+
+        <!-- Navigation Menu -->
+        <ul
+          class="nav-menu hidden md:flex items-center gap-8"
+          style="list-style: none; margin: 0; padding: 0"
+        >
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="index.html#about" class="nav-link">About</a></li>
+          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <!-- Cart Button -->
+        <button class="cart-btn" id="cartToggle">
+          <svg
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 01-8 0" />
+          </svg>
+          Cart
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Products -->
+    <section class="products-section" id="products">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-2">
+          <div>
+            <p class="section-label">Our Store</p>
+            <h2 class="section-title">Browse Products</h2>
+          </div>
+        </div>
+
+        <!-- Category filters -->
+        <div class="category-filters" id="categoryFilters">
+          <button class="filter-btn active" data-category="all">All</button>
+          <!-- JS will inject more buttons here -->
+        </div>
+
+        <!-- Product grid -->
+        <div class="product-grid" id="productGrid">
+          <!-- Skeleton placeholders shown while loading -->
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div
+              class="skeleton-text"
+              style="width: 80%; margin-top: 1rem"
+            ></div>
+            <div class="skeleton-text" style="width: 50%"></div>
+            <div
+              class="skeleton-text"
+              style="width: 65%; margin-bottom: 1rem"
+            ></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div
+              class="skeleton-text"
+              style="width: 80%; margin-top: 1rem"
+            ></div>
+            <div class="skeleton-text" style="width: 50%"></div>
+            <div
+              class="skeleton-text"
+              style="width: 65%; margin-bottom: 1rem"
+            ></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div
+              class="skeleton-text"
+              style="width: 80%; margin-top: 1rem"
+            ></div>
+            <div class="skeleton-text" style="width: 50%"></div>
+            <div
+              class="skeleton-text"
+              style="width: 65%; margin-bottom: 1rem"
+            ></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div
+              class="skeleton-text"
+              style="width: 80%; margin-top: 1rem"
+            ></div>
+            <div class="skeleton-text" style="width: 50%"></div>
+            <div
+              class="skeleton-text"
+              style="width: 65%; margin-bottom: 1rem"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Script(s) -->
     <script src="script.js"></script>
   </body>
 </html>

@@ -8,14 +8,14 @@
 }
 
 * {
-  font-family: "DM Sans", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 h1,
 h2,
 h3,
 .display {
-  font-family: "Playfair Display", serif;
+  font-family: "Hind Siliguri", serif;
 }
 
 body {
@@ -23,7 +23,7 @@ body {
   color: var(--brand);
 }
 
-/* ── Navbar ── */
+/* Navbar */
 .navbar-custom {
   background: rgba(249, 247, 244, 0.92);
   backdrop-filter: blur(12px);
@@ -93,7 +93,7 @@ body {
   justify-content: center;
 }
 
-/* ── Hero ── */
+/* Hero Section */
 .hero-section {
   min-height: 92vh;
   background:
@@ -229,7 +229,7 @@ body {
   margin-top: 0.25rem;
 }
 
-/* ── Section headings ── */
+/* Section Headings */
 .section-label {
   font-size: 0.75rem;
   font-weight: 600;
@@ -247,7 +247,7 @@ body {
   line-height: 1.2;
 }
 
-/* ── Why Choose Us ── */
+/* Why Choose Us */
 .features-section {
   padding: 6rem 2rem;
   background: white;
@@ -312,13 +312,13 @@ body {
   font-weight: 300;
 }
 
-/* ── Products Section ── */
+/* Products */
 .products-section {
   padding: 6rem 2rem;
   background: var(--soft);
 }
 
-/* Category filters */
+/* Category Filters */
 .category-filters {
   display: flex;
   flex-wrap: wrap;
@@ -347,7 +347,7 @@ body {
   border-color: var(--brand);
 }
 
-/* Product cards */
+/* Product Cards */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -490,7 +490,7 @@ body {
   background: var(--accent);
 }
 
-/* Loading skeleton */
+/* Loading Skeleton */
 .skeleton-card {
   background: white;
   border-radius: 20px;
@@ -523,7 +523,7 @@ body {
   }
 }
 
-/* ── Trending Section ── */
+/* Trending Now */
 .trending-section {
   padding: 6rem 2rem;
   background: white;
@@ -588,7 +588,7 @@ body {
   color: var(--accent);
 }
 
-/* ── Details Modal ── */
+/* Details Modal */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -722,7 +722,7 @@ body {
   background: var(--soft);
 }
 
-/* ── Cart Sidebar ── */
+/* Cart Sidebar */
 .cart-overlay {
   position: fixed;
   inset: 0;
@@ -884,7 +884,7 @@ body {
   margin-bottom: 1rem;
 }
 
-/* ── Footer ── */
+/* Footer */
 .footer-section {
   background: var(--brand);
   color: white;
@@ -1022,7 +1022,7 @@ body {
   font-weight: 300;
 }
 
-/* ── Responsive ── */
+/* Responsive */
 @media (max-width: 768px) {
   .hero-section {
     background:
@@ -1093,7 +1093,7 @@ body {
   }
 }
 
-/* ── Toast ── */
+/* Toast */
 .toast-wrap {
   position: fixed;
   bottom: 1.5rem;
